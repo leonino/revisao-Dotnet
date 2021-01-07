@@ -29,6 +29,11 @@ namespace Revisao
             id = SelecionarAluno();
             EditarAluno(id);
             break;
+          case "3":
+            //Exclui aluno
+            id = SelecionarAluno();
+            ExcluirAluno(id);
+            break;
           default:
             Console.WriteLine("Opção Invalida!!!");
             //throw new ArgumentOutOfRangeException("Opção Inválida");
@@ -59,13 +64,13 @@ namespace Revisao
 
     static void DefinirConceito()
     {
-      if (mediaGeral < 2)
+      if (mediaGeral <= 2)
         conceito = ConceitoEnum.E;
-      else if (mediaGeral < 4)
+      else if (mediaGeral <= 4)
         conceito = ConceitoEnum.D;
-      else if (mediaGeral < 6)
+      else if (mediaGeral <= 6)
         conceito = ConceitoEnum.C;
-      else if (mediaGeral < 8)
+      else if (mediaGeral <= 8)
         conceito = ConceitoEnum.B;
       else
         conceito = ConceitoEnum.A;
@@ -118,6 +123,7 @@ namespace Revisao
       alunos.Add(aluno);
 
     }
+
     static void EditarAluno(int id)
     {
       if (id > 0 && id <= alunos.Count)
@@ -136,12 +142,25 @@ namespace Revisao
       }
     }
 
-    public static int SelecionarAluno() {
-      ListarAlunos();
-      Console.WriteLine();
-      Console.WriteLine("Informe o ID do Aluno:");
-      int id = int.Parse(Console.ReadLine());
-      return id;
+    static void ExcluirAluno(int id)
+    {
+      if (id > 0 && id <= alunos.Count)
+        alunos.Remove(alunos[(id - 1)]);
+      else
+        Console.WriteLine("Id informado é inválido!!!");
+    }
+
+    public static int SelecionarAluno()
+    {
+      if (alunos.Count > 0)
+      {
+        ListarAlunos();
+        Console.WriteLine();
+        Console.WriteLine("Informe o ID do Aluno:");
+        int id = int.Parse(Console.ReadLine());
+        return id;
+      }
+      return 0;
     }
   }
 }
