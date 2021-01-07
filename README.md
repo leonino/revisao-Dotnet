@@ -2,7 +2,7 @@
 
 Exemplo de sistema padrão console em .Net 
 
-![](https://github.com/leonino/revisao-Dotnet/blob/master/exemplo.png)
+<img src="https://github.com/leonino/revisao-Dotnet/blob/master/exemplo.png" width="75%"/>
 
 O sistema é simples e visa aprender alguns conceitos sobre a linguagem
 
