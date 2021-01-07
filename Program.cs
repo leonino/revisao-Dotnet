@@ -12,6 +12,7 @@ namespace Revisao
 
     static void Main(string[] args)
     {
+      int id = 0;
       string opcaoDesejada = OpcaoDesejada();
 
       while (opcaoDesejada.ToUpper() != "X")
@@ -22,6 +23,11 @@ namespace Revisao
           case "1":
             //Incluir aluno
             CriarAluno();
+            break;
+          case "2":
+            //Editar aluno
+            id = SelecionarAluno();
+            EditarAluno(id);
             break;
           default:
             Console.WriteLine("Opção Invalida!!!");
@@ -40,6 +46,8 @@ namespace Revisao
         Console.WriteLine("Escolha a opção desejada");
         Console.WriteLine();
         Console.WriteLine("1. Inserir um aluno");
+        Console.WriteLine("2. Editar aluno");
+        Console.WriteLine("3. Excluir aluno");
         Console.WriteLine("X. Sair");
         Console.WriteLine();
 
@@ -81,7 +89,7 @@ namespace Revisao
           var item = alunos[i];
           Console.WriteLine(String.Format("{0:000}", i + 1) + "| " +
                 String.Format("{0, -30}", item.Nome) + "| " +
-                String.Format("{0, -10}", item.Nota));
+                String.Format("{0:#0.0#}", item.Nota));
           totalGeral += item.Nota;
         };
         mediaGeral = Math.Round(totalGeral / alunos.Count, 1);
@@ -109,6 +117,31 @@ namespace Revisao
         throw new ArgumentException("O valor da Nota deve ser um decimal: 0,0 à 10,0");
       alunos.Add(aluno);
 
+    }
+    static void EditarAluno(int id)
+    {
+      if (id > 0 && id <= alunos.Count)
+      {
+        Aluno edAluno = alunos[id - 1];
+
+        Console.WriteLine();
+        Console.WriteLine($"Informe o novo Nome para: {edAluno.Nome}");
+        edAluno.Nome = Console.ReadLine();
+        Console.WriteLine($"Informe a nova Nota, Atual: {edAluno.Nota}");
+        if (decimal.TryParse(Console.ReadLine(), out decimal ednota))
+          edAluno.Nota = ednota;
+        else
+          throw new ArgumentException("O valor da Nota deve ser um decimal: 0,0 à 10,0");
+        alunos[(id - 1)] = edAluno;
+      }
+    }
+
+    public static int SelecionarAluno() {
+      ListarAlunos();
+      Console.WriteLine();
+      Console.WriteLine("Informe o ID do Aluno:");
+      int id = int.Parse(Console.ReadLine());
+      return id;
     }
   }
 }
